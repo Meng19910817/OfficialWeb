@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="indi.ZH.OfficialWeb.persistence.mapper.Banner.BannerMapper" >
+
+  <resultMap id="BaseResultMap" type="indi.ZH.OfficialWeb.entity.Banner.Banner" >
+    <id column="banner_id" property="bannerId" jdbcType="INTEGER" />
+    <result column="banner_name" property="bannerName" jdbcType="VARCHAR" />
+    <result column="img_url" property="imgUrl" jdbcType="VARCHAR" />
+    <result column="redirect_url" property="redirectUrl" jdbcType="VARCHAR" />
+    <result column="is_validate" property="isValidate" jdbcType="INTEGER" />
+    <result column="validate_time" property="validateTime" jdbcType="TIME" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    banner_id, banner_name, img_url, redirect_url, is_validate, validate_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_banner
+    where banner_id = #{bannerId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_banner
+    where banner_id = #{bannerId,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insert" parameterType="indi.ZH.OfficialWeb.entity.Banner.Banner" >
+    insert into t_banner (banner_id, banner_name, img_url, 
+      redirect_url, is_validate, validate_time
+      )
+    values (#{bannerId,jdbcType=INTEGER}, #{bannerName,jdbcType=VARCHAR}, #{imgUrl,jdbcType=VARCHAR}, 
+      #{redirectUrl,jdbcType=VARCHAR}, #{isValidate,jdbcType=INTEGER}, #{validateTime,jdbcType=TIME}
+      )
+  </insert>
+
+  <insert id="insertSelective" parameterType="indi.ZH.OfficialWeb.entity.Banner.Banner" >
+    insert into t_banner
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bannerId != null" >
+        banner_id,
+      </if>
+      <if test="bannerName != null" >
+        banner_name,
+      </if>
+      <if test="imgUrl != null" >
+        img_url,
+      </if>
+      <if test="redirectUrl != null" >
+        redirect_url,
+      </if>
+      <if test="isValidate != null" >
+        is_validate,
+      </if>
+      <if test="validateTime != null" >
+        validate_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bannerId != null" >
+        #{bannerId,jdbcType=INTEGER},
+      </if>
+      <if test="bannerName != null" >
+        #{bannerName,jdbcType=VARCHAR},
+      </if>
+      <if test="imgUrl != null" >
+        #{imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="redirectUrl != null" >
+        #{redirectUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="isValidate != null" >
+        #{isValidate,jdbcType=INTEGER},
+      </if>
+      <if test="validateTime != null" >
+        #{validateTime,jdbcType=TIME},
+      </if>
+    </trim>
+  </insert>
+
+
+  <update id="updateByPrimaryKeySelective" parameterType="indi.ZH.OfficialWeb.entity.Banner.Banner" >
+    update t_banner
+    <set >
+      <if test="bannerName != null" >
+        banner_name = #{bannerName,jdbcType=VARCHAR},
+      </if>
+      <if test="imgUrl != null" >
+        img_url = #{imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="redirectUrl != null" >
+        redirect_url = #{redirectUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="isValidate != null" >
+        is_validate = #{isValidate,jdbcType=INTEGER},
+      </if>
+      <if test="validateTime != null" >
+        validate_time = #{validateTime,jdbcType=TIME},
+      </if>
+    </set>
+    where banner_id = #{bannerId,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="indi.ZH.OfficialWeb.entity.Banner.Banner" >
+    update t_banner
+    set banner_name = #{bannerName,jdbcType=VARCHAR},
+      img_url = #{imgUrl,jdbcType=VARCHAR},
+      redirect_url = #{redirectUrl,jdbcType=VARCHAR},
+      is_validate = #{isValidate,jdbcType=INTEGER},
+      validate_time = #{validateTime,jdbcType=TIME}
+    where banner_id = #{bannerId,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select * from t_banner where is_validate = #{is_validate} order by banner_id desc
+  </select>
+</mapper>

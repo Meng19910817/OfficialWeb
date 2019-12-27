@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="indi.ZH.OfficialWeb.persistence.mapper.Recommond.RecommondMapper" >
+  <resultMap id="BaseResultMap" type="indi.ZH.OfficialWeb.entity.Recommond.Recommond" >
+    <id column="recommon_id" property="recommonId" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="img_url" property="imgUrl" jdbcType="VARCHAR" />
+    <result column="redirect_url" property="redirectUrl" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    recommon_id, title, img_url, redirect_url
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_recommond
+    where recommon_id = #{recommonId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_recommond
+    where recommon_id = #{recommonId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="indi.ZH.OfficialWeb.entity.Recommond.Recommond" >
+    insert into t_recommond (recommon_id, title, img_url, 
+      redirect_url)
+    values (#{recommonId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{imgUrl,jdbcType=VARCHAR}, 
+      #{redirectUrl,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="indi.ZH.OfficialWeb.entity.Recommond.Recommond" >
+    insert into t_recommond
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="recommonId != null" >
+        recommon_id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="imgUrl != null" >
+        img_url,
+      </if>
+      <if test="redirectUrl != null" >
+        redirect_url,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="recommonId != null" >
+        #{recommonId,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="imgUrl != null" >
+        #{imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="redirectUrl != null" >
+        #{redirectUrl,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="indi.ZH.OfficialWeb.entity.Recommond.Recommond" >
+    update t_recommond
+    <set >
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="imgUrl != null" >
+        img_url = #{imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="redirectUrl != null" >
+        redirect_url = #{redirectUrl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where recommon_id = #{recommonId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="indi.ZH.OfficialWeb.entity.Recommond.Recommond" >
+    update t_recommond
+    set title = #{title,jdbcType=VARCHAR},
+      img_url = #{imgUrl,jdbcType=VARCHAR},
+      redirect_url = #{redirectUrl,jdbcType=VARCHAR}
+    where recommon_id = #{recommonId,jdbcType=INTEGER}
+  </update>
+  <select id="selectAllRecommonds" resultMap="BaseResultMap">
+    select * from t_recommond
+  </select>
+
+</mapper>
